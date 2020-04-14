@@ -29,5 +29,10 @@ namespace Tests {
                 Assert.AreEqual(10, entry.GetInt("hp"));
             }
         }
+
+        [Test]
+        public void TestNull() {
+            Assert.IsNull(data.GetTable("Foobar"));
+        }
     }
 }

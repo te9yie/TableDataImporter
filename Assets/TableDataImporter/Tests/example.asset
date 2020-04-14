@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 185730ff2b73efc45a435c525fb9678f, type: 3}
-  m_Name: example
+  m_Name: 
   m_EditorClassIdentifier: 
   labels:
   - Name: BNpc
@@ -32,10 +32,8 @@ MonoBehaviour:
         Offset: 0
         ArrayCount: 1
       values:
-      - Bytes: 00000000
+      - Bytes: 53006c0069006d006500
       - Bytes: 05000000
-      strings:
-      - Slime
     - tags:
       - Name: hp
         Offset: 1
@@ -44,7 +42,5 @@ MonoBehaviour:
         Offset: 0
         ArrayCount: 1
       values:
-      - Bytes: 00000000
+      - Bytes: 47006f0062006c0069006e00
       - Bytes: 0a000000
-      strings:
-      - Goblin

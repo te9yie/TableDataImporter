@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace TableDataImporter.Editor {
@@ -89,7 +90,6 @@ namespace TableDataImporter.Editor {
 
     internal class EntryBuilder {
         private Dictionary<string, List<Entry.Value>> tags = new Dictionary<string, List<Entry.Value>>();
-        private List<string> strings = new List<string>();
 
         internal EntryBuilder AddInt(string name, int i) {
             var values = GetValues(name);
@@ -110,9 +110,9 @@ namespace TableDataImporter.Editor {
         }
 
         internal EntryBuilder AddString(string name, string s) {
-            var i = strings.Count;
-            strings.Add(s);
-            return AddInt(name, i);
+            var values = GetValues(name);
+            values.Add(new Entry.Value { Bytes = Encoding.Unicode.GetBytes(s) });
+            return this;
         }
 
         internal Entry Build() {
@@ -127,7 +127,7 @@ namespace TableDataImporter.Editor {
                 vs.AddRange(item.Value);
             }
             ts.Sort();
-            return new Entry(ts, vs, strings);
+            return new Entry(ts, vs);
         }
 
         private List<Entry.Value> GetValues(string name) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace TableDataImporter {
@@ -94,12 +95,10 @@ namespace TableDataImporter {
 
         [SerializeField] private List<Tag> tags;
         [SerializeField] private List<Value> values;
-        [SerializeField] private List<string> strings;
 
-        public Entry(List<Tag> tags, List<Value> values, List<string> strings) {
+        public Entry(List<Tag> tags, List<Value> values) {
             this.tags = tags;
             this.values = values;
-            this.strings = strings;
         }
 
         public int? GetCount(string name) {
@@ -132,9 +131,9 @@ namespace TableDataImporter {
         }
 
         public string GetString(string name, int i) {
-            var stringIndex = GetInt(name, i);
-            if (!stringIndex.HasValue) return null;
-            return strings[stringIndex.Value];
+            var value = GetValue(name, i);
+            if (!value.HasValue) return null;
+            return Encoding.Unicode.GetString(value.Value.Bytes);
         }
 
         private Tag GetTag(string name) {
