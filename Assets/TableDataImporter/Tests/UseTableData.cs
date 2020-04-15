@@ -2,8 +2,7 @@
 using NUnit.Framework;
 
 namespace Tests {
-    public class UseTableData
-    {
+    public class UseTableData {
         private TableDataImporter.TableData data;
 
         [OneTimeSetUp]

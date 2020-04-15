@@ -4,14 +4,20 @@ using NPOI.SS.UserModel;
 
 namespace TableDataImporter.Editor {
     internal class ExcelParser : ITableDataParser {
-        private string path;
+        private readonly string path;
 
-        public ExcelParser(string path) {
+        internal static bool CanParse(string path) {
+            string[] EXTENSIONS = { ".xlsx", ".xls" };
+            var ext = Path.GetExtension(path);
+            return EXTENSIONS.Contains(ext);
+        }
+
+        internal ExcelParser(string path) {
             this.path = path;
         }
 
         public TableDataAst Parse() {
-            
+
             using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 var book = WorkbookFactory.Create(input);
                 if (book == null) return null;
@@ -81,7 +87,7 @@ namespace TableDataImporter.Editor {
                 return repo;
             }
         }
-        
+
         enum RowType {
             None,
             Tag,
@@ -98,12 +104,6 @@ namespace TableDataImporter.Editor {
             default: break;
             }
             return null;
-        }
-
-        internal static bool CanParse(string path) {
-            string[] EXTENSIONS = { ".xlsx", ".xls" };
-            var ext = Path.GetExtension(path);
-            return EXTENSIONS.Contains(ext);
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 namespace TableDataImporter.Editor {
     public class Importer {
         private const string MENU_ITEM = "Assets/Import TableData";
-        private static readonly string[] EXTENSIONS = { ".xls", ".xlsx", }; // TODO: ".csv", ".tsv" ...
 
         [MenuItem(MENU_ITEM, true)]
         public static bool IsTableData() {

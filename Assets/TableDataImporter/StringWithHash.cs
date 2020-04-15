@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TableDataImporter {
     [Serializable]
-    public class StringWithHash : IComparable<StringWithHash>{
+    public class StringWithHash : IComparable<StringWithHash> {
         [SerializeField] private string string_;
         [SerializeField] private uint hash;
 

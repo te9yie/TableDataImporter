@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace TableDataImporter.Editor {
     internal class TableDataBuilder {
-        private TableDataAst ast;
+        private readonly TableDataAst ast;
 
-        public TableDataBuilder(TableDataAst ast) {
+        internal TableDataBuilder(TableDataAst ast) {
             this.ast = ast;
         }
 

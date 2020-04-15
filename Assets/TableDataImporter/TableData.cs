@@ -21,7 +21,7 @@ namespace TableDataImporter {
             this.labels = labels;
             this.tables = tables;
         }
-        
+
         public Table GetTable(StringWithHash name) {
             Label key = new Label {
                 Name = name
