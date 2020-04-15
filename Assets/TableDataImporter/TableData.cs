@@ -8,7 +8,7 @@ namespace TableDataImporter {
     public class TableData : ScriptableObject {
         [Serializable]
         public class Label : IComparable<Label> {
-            public string Name;
+            public StringWithHash Name;
             public int Offset;
 
             public int CompareTo(Label other) => Name.CompareTo(other.Name);
@@ -22,7 +22,7 @@ namespace TableDataImporter {
             this.tables = tables;
         }
         
-        public Table GetTable(string name) {
+        public Table GetTable(StringWithHash name) {
             Label key = new Label {
                 Name = name
             };
@@ -37,7 +37,7 @@ namespace TableDataImporter {
     public class Table {
         [Serializable]
         public class Label : IComparable<Label> {
-            public string Name;
+            public StringWithHash Name;
             public int Offset;
             public int ArrayCount;
 
@@ -52,22 +52,22 @@ namespace TableDataImporter {
             this.entries = entries;
         }
 
-        public int? GetCount(string name) {
+        public int? GetCount(StringWithHash name) {
             var label = GetLabel(name);
             if (label == null) return null;
             return label.ArrayCount;
         }
 
-        public Entry GetEntry(string name) => GetEntry(name, 0);
+        public Entry GetEntry(StringWithHash name) => GetEntry(name, 0);
 
-        public Entry GetEntry(string name, int i) {
+        public Entry GetEntry(StringWithHash name, int i) {
             var label = GetLabel(name);
             if (label == null) return null;
             if (i >= label.ArrayCount) return null;
             return entries[label.Offset + i];
         }
 
-        private Label GetLabel(string name) {
+        private Label GetLabel(StringWithHash name) {
             Label key = new Label {
                 Name = name
             };
@@ -81,7 +81,7 @@ namespace TableDataImporter {
     public class Entry {
         [Serializable]
         public class Tag : IComparable<Tag> {
-            public string Name;
+            public StringWithHash Name;
             public int Offset;
             public int ArrayCount;
 
@@ -101,42 +101,42 @@ namespace TableDataImporter {
             this.values = values;
         }
 
-        public int? GetCount(string name) {
+        public int? GetCount(StringWithHash name) {
             var tag = GetTag(name);
             if (tag == null) return null;
             return tag.ArrayCount;
         }
 
-        public int? GetInt(string name) => GetInt(name, 0);
-        public float? GetFloat(string name) => GetFloat(name, 0);
-        public bool? GetBool(string name) => GetBool(name, 0);
-        public string GetString(string name) => GetString(name, 0);
+        public int? GetInt(StringWithHash name) => GetInt(name, 0);
+        public float? GetFloat(StringWithHash name) => GetFloat(name, 0);
+        public bool? GetBool(StringWithHash name) => GetBool(name, 0);
+        public string GetString(StringWithHash name) => GetString(name, 0);
 
-        public int? GetInt(string name, int i) {
+        public int? GetInt(StringWithHash name, int i) {
             var value = GetValue(name, i);
             if (!value.HasValue) return null;
             return BitConverter.ToInt32(value.Value.Bytes, 0);
         }
 
-        public float? GetFloat(string name, int i) {
+        public float? GetFloat(StringWithHash name, int i) {
             var value = GetValue(name, i);
             if (!value.HasValue) return null;
             return BitConverter.ToSingle(value.Value.Bytes, 0);
         }
 
-        public bool? GetBool(string name, int i) {
+        public bool? GetBool(StringWithHash name, int i) {
             var value = GetValue(name, i);
             if (!value.HasValue) return null;
             return BitConverter.ToBoolean(value.Value.Bytes, 0);
         }
 
-        public string GetString(string name, int i) {
+        public string GetString(StringWithHash name, int i) {
             var value = GetValue(name, i);
             if (!value.HasValue) return null;
             return Encoding.Unicode.GetString(value.Value.Bytes);
         }
 
-        private Tag GetTag(string name) {
+        private Tag GetTag(StringWithHash name) {
             Tag key = new Tag {
                 Name = name
             };
@@ -145,7 +145,7 @@ namespace TableDataImporter {
             return tags[tagIndex];
         }
 
-        private Value? GetValue(string name, int i) {
+        private Value? GetValue(StringWithHash name, int i) {
             var tag = GetTag(name);
             if (tag == null) return null;
             if (i >= tag.ArrayCount) return null;

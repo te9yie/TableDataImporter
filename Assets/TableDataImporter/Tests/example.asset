@@ -10,35 +10,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 185730ff2b73efc45a435c525fb9678f, type: 3}
-  m_Name: 
+  m_Name: example
   m_EditorClassIdentifier: 
   labels:
-  - Name: BNpc
+  - Name:
+      string_: BNpc
+      hash: 297411568
     Offset: 0
   tables:
   - labels:
-    - Name: goblin
+    - Name:
+        string_: goblin
+        hash: 936399230
       Offset: 1
       ArrayCount: 1
-    - Name: slime
+    - Name:
+        string_: slime
+        hash: 2205864411
       Offset: 0
       ArrayCount: 1
     entries:
     - tags:
-      - Name: hp
+      - Name:
+          string_: hp
+          hash: 1362809445
         Offset: 1
         ArrayCount: 1
-      - Name: name
+      - Name:
+          string_: name
+          hash: 2369371622
         Offset: 0
         ArrayCount: 1
       values:
       - Bytes: 53006c0069006d006500
       - Bytes: 05000000
     - tags:
-      - Name: hp
+      - Name:
+          string_: hp
+          hash: 1362809445
         Offset: 1
         ArrayCount: 1
-      - Name: name
+      - Name:
+          string_: name
+          hash: 2369371622
         Offset: 0
         ArrayCount: 1
       values:
