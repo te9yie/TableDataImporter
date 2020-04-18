@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 185730ff2b73efc45a435c525fb9678f, type: 3}
-  m_Name: example
+  m_Name: 
   m_EditorClassIdentifier: 
   labels:
   - Name:
       string_: BNpc
       hash: 297411568
     Offset: 0
+  - Name:
+      string_: AI
+      hash: 601166687
+    Offset: 1
   tables:
   - labels:
     - Name:
@@ -34,27 +38,73 @@ MonoBehaviour:
       - Name:
           string_: hp
           hash: 1362809445
-        Offset: 1
+        Offset: 2
         ArrayCount: 1
       - Name:
           string_: name
           hash: 2369371622
         Offset: 0
-        ArrayCount: 1
+        ArrayCount: 2
       values:
+      - Bytes: 42007500620062006c007900200053006c0069006d006500
       - Bytes: 53006c0069006d006500
       - Bytes: 05000000
     - tags:
       - Name:
           string_: hp
           hash: 1362809445
-        Offset: 1
+        Offset: 2
         ArrayCount: 1
       - Name:
           string_: name
           hash: 2369371622
         Offset: 0
-        ArrayCount: 1
+        ArrayCount: 2
       values:
       - Bytes: 47006f0062006c0069006e00
+      - Bytes: 53006d0061006c006c002000480075006d0061006e006f0069006400
       - Bytes: 0a000000
+  - labels:
+    - Name:
+        string_: goblin
+        hash: 936399230
+      Offset: 2
+      ArrayCount: 2
+    - Name:
+        string_: slime
+        hash: 2205864411
+      Offset: 0
+      ArrayCount: 2
+    entries:
+    - tags:
+      - Name:
+          string_: action
+          hash: 3294899967
+        Offset: 0
+        ArrayCount: 1
+      values:
+      - Bytes: 410074007400610063006b00
+    - tags:
+      - Name:
+          string_: action
+          hash: 3294899967
+        Offset: 0
+        ArrayCount: 1
+      values:
+      - Bytes: 5700610069007400
+    - tags:
+      - Name:
+          string_: action
+          hash: 3294899967
+        Offset: 0
+        ArrayCount: 1
+      values:
+      - Bytes: 410074007400610063006b00
+    - tags:
+      - Name:
+          string_: action
+          hash: 3294899967
+        Offset: 0
+        ArrayCount: 1
+      values:
+      - Bytes: 47006f0062006c0069006e002000500075006e0063006800

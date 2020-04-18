@@ -17,7 +17,6 @@ namespace TableDataImporter.Editor {
         }
 
         public TableDataAst Parse() {
-
             using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 var book = WorkbookFactory.Create(input);
                 if (book == null) return null;
@@ -30,25 +29,23 @@ namespace TableDataImporter.Editor {
                     for (int j = sheet.FirstRowNum, j_n = sheet.LastRowNum; j <= j_n; ++j) {
                         var row = sheet.GetRow(j);
                         if (row == null) continue;
-                        RowType rowType = RowType.None;
+                        RowType rowType = RowType.Entry;
                         EntryAst entry = null;
                         for (int k = row.FirstCellNum, k_n = row.LastCellNum; k < k_n; ++k) {
                             var cell = row.GetCell(k);
                             if (cell == null) continue;
                             var str = GetCellString(cell, cell.CellType);
-                            if (!string.IsNullOrEmpty(str)) {
-                                if (str.StartsWith("[") && str.EndsWith("]")) {
-                                    tableIndent = k;
-                                    table = repo.AddTable(str.Trim('[', ']'));
-                                    continue;
-                                }
+                            if (string.IsNullOrEmpty(str)) continue;
+                            if (str.StartsWith("[") && str.EndsWith("]")) {
+                                tableIndent = k;
+                                table = repo.AddTable(str.Trim('[', ']'));
+                                continue;
                             }
                             if (table == null) continue;
                             if (k < tableIndent) continue;
                             var index = k - tableIndent;
                             if (index == 0) {
                                 if (!string.IsNullOrEmpty(str)) {
-                                    if (str.StartsWith("#")) continue;
                                     switch (str.ToLower()) {
                                     case "<tag>":
                                         rowType = RowType.Tag;
@@ -62,10 +59,6 @@ namespace TableDataImporter.Editor {
                                         break;
                                     }
                                 }
-                                else {
-                                    entry = table.DupLastEntry();
-                                    rowType = RowType.Entry;
-                                }
                                 continue;
                             }
                             index -= 1;
@@ -77,7 +70,9 @@ namespace TableDataImporter.Editor {
                                 table.AddTagType(index, str);
                                 break;
                             case RowType.Entry:
-                                if (entry == null) break;
+                                if (entry == null) {
+                                    entry = table.DupLastEntry();
+                                }
                                 entry.AddValue(index, str);
                                 break;
                             }
@@ -89,10 +84,9 @@ namespace TableDataImporter.Editor {
         }
 
         enum RowType {
-            None,
+            Entry,
             Tag,
             Type,
-            Entry,
         };
 
         private string GetCellString(ICell cell, CellType cellType) {

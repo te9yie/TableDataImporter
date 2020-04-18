@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using UnityEditor;
-using UnityEngine;
 
 namespace TableDataImporter.Editor {
     public class Importer {
@@ -20,7 +19,7 @@ namespace TableDataImporter.Editor {
             var builder = new TableDataBuilder(ast);
             var data = builder.Build();
             var outputPath = Path.ChangeExtension(inputPath, ".asset");
-            var asset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(outputPath);
+            var asset = AssetDatabase.LoadAssetAtPath<TableData>(outputPath);
             if (asset == null) {
                 AssetDatabase.CreateAsset(data, outputPath);
             }
