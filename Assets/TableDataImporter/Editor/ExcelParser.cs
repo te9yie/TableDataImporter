@@ -39,25 +39,24 @@ namespace TableDataImporter.Editor {
                             if (str.StartsWith("[") && str.EndsWith("]")) {
                                 tableIndent = k;
                                 table = repo.AddTable(str.Trim('[', ']'));
+                                rowType = RowType.Table;
                                 continue;
                             }
                             if (table == null) continue;
                             if (k < tableIndent) continue;
                             var index = k - tableIndent;
                             if (index == 0) {
-                                if (!string.IsNullOrEmpty(str)) {
-                                    switch (str.ToLower()) {
-                                    case "<tag>":
-                                        rowType = RowType.Tag;
-                                        break;
-                                    case "<type>":
-                                        rowType = RowType.Type;
-                                        break;
-                                    default:
-                                        entry = table.AddEntry(str);
-                                        rowType = RowType.Entry;
-                                        break;
-                                    }
+                                switch (str.ToLower()) {
+                                case "<tag>":
+                                    rowType = RowType.Tag;
+                                    break;
+                                case "<type>":
+                                    rowType = RowType.Type;
+                                    break;
+                                default:
+                                    entry = table.AddEntry(str);
+                                    rowType = RowType.Entry;
+                                    break;
                                 }
                                 continue;
                             }
@@ -75,6 +74,8 @@ namespace TableDataImporter.Editor {
                                 }
                                 entry.AddValue(index, str);
                                 break;
+                            default:
+                                break;
                             }
                         }
                     }
@@ -84,9 +85,10 @@ namespace TableDataImporter.Editor {
         }
 
         enum RowType {
-            Entry,
+            Table,
             Tag,
             Type,
+            Entry,
         };
 
         private string GetCellString(ICell cell, CellType cellType) {
